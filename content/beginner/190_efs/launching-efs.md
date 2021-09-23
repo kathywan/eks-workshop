@@ -35,9 +35,10 @@ aws efs describe-file-systems --file-system-id $FILE_SYSTEM_ID
 The EKS cluster that you created comprises worker nodes that are resident in the public subnets of the cluster VPC. Each public subnet resides in a different Availability Zone. As mentioned earlier, worker nodes connect to an EFS file system by using a mount target. It is best to create a mount target in each of the EKS cluster VPC's Availability Zones so that worker nodes across your EKS cluster can all have access to the file system.  
 
 The following set of commands identifies the public subnets in your cluster VPC and creates a mount target in each one of them as well as associate that mount target with the security group you created above.
-```sh
-TAG=tag:kubernetes.io/role/elb
-subnets=($(aws ec2 describe-subnets --filters "Name=$TAG,Values=1" | jq --raw-output '.Subnets[].SubnetId'))
+```
+TAG1=tag:alpha.eksctl.io/cluster-name
+TAG2=tag:kubernetes.io/role/elb
+subnets=($(aws ec2 describe-subnets --filters "Name=$TAG1,Values=$CLUSTER_NAME" "Name=$TAG2,Values=1" | jq --raw-output '.Subnets[].SubnetId'))
 for subnet in ${subnets[@]}
 do
     echo "creating mount target in " $subnet
