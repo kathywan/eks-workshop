@@ -2,7 +2,7 @@
 title: "Backup and Restore using Velero"
 chapter: true
 weight: 280
-draft: true
+draft: false
 tags:
   - intermediate
   - operations

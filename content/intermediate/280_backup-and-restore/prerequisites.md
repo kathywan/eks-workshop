@@ -1,7 +1,7 @@
 ---
 title: "Create S3 Bucket and IAM Role for Velero"
 weight: 10
-draft: true
+draft: false
 ---
 
 #### Create an S3 bucket to backup cluster
@@ -114,13 +114,13 @@ cat velero-access-key.json
 The result should look like below. 
 ```
 {
-  "AccessKey": {
+    "AccessKey": {
         "UserName": "velero",
         "Status": "Active",
-        "CreateDate": "2020-03-18T22:24:41.576Z",
+        "CreateDate": "2021-11-15T23:07:18+00:00",
         "SecretAccessKey": <AWS_SECRET_ACCESS_KEY>,
         "AccessKeyId": <AWS_ACCESS_KEY_ID>
-  }
+    }
 }
 ```
 Now, let’s set the VELERO_ACCESS_KEY_ID and VELERO_SECRET_ACCESS_KEY environment variables and save them to bash_profile.

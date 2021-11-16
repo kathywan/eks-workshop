@@ -1,12 +1,13 @@
 ---
 title: "Cleanup"
 weight: 50
-draft: true
+draft: false
 ---
 
-Cleanup staging namepspace
+Cleanup wordpress helm deployment and staging namepspace
 
 ```
+helm delete my-wordpress -n staging
 kubectl delete namespace staging
 kubectl delete storageclass staging
 ```
@@ -27,16 +28,13 @@ aws iam delete-user --user-name velero
 
 Delete files from Cloud9 environment
 ```
-cd ..
-rm -f velero*
-rm -fr backup-restore
+rm -f ~/environment/velero*
+rm -fr ~/environment/backup-restore
 sudo rm -f /usr/local/bin/velero
 ```
 
-You may also want to delete the environment variables (`$VELERO_BUCKET`, `$VELERO_ACCESS_KEY_ID`, and `$VELERO_SECRET_ACCESS_KEY`) from `~/.bash_profile` using your preferred editor as they are no longer valid. You will need to remove the lines below from `~/.bash_profile`.
+You may also want to delete the environment variables (`$VELERO_BUCKET`, `$VELERO_ACCESS_KEY_ID`, and `$VELERO_SECRET_ACCESS_KEY`) from `~/.bash_profile` as they are no longer valid.
 
 ```
-export VELERO_BUCKET=eksworkshop-backup-1587212345-12345
-export VELERO_ACCESS_KEY_ID=AKIAABCD12345EFGH
-export VELERO_SECRET_ACCESS_KEY=XcImQuya/S0O6REL5ZrKI31yqW9Dsihb9ktNmpsQ
+cat ~/.bash_profile | sed '/^export VELERO_*/d' | tee ~/.bash_profile
 ```
